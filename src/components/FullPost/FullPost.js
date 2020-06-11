@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axios from '../../axios';
 import './FullPost.css';
 
 class FullPost extends Component {
@@ -9,11 +9,16 @@ class FullPost extends Component {
     }
 
     componentDidUpdate(){
-        if (!this.props.id || (this.state.fullPost && this.props.id == this.state.fullPost.id) ) return;
-        axios.get('https://jsonplaceholder.typicode.com/posts/' + this.props.id).then(res => {
+        if (!this.props.id || (this.state.fullPost && this.props.id === this.state.fullPost.id) ) return;
+        axios.get('/posts/' + this.props.id).then(res => {
             this.setState({ fullPost: res.data });
         });
     }
+
+    deletePostHandler = () => {
+        axios.delete('/posts/'+this.props.id);
+    }
+
 
     render() {
 
